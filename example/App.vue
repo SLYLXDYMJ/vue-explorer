@@ -53,10 +53,8 @@
   export default {
     data () {
       return {
-        dataArr,
-        selectedArr: [
-          dataArr[ 0 ]
-        ],
+        dataArr: [],
+        selectedArr: [],
         otherColumnArr: [
           {
             label: '时间',
@@ -89,12 +87,21 @@
       }
     },
     methods: {
+      init () {
+        setTimeout(() => {
+          this.dataArr = dataArr
+          this.selectedArr = [ dataArr[ 0 ] ]
+        }, 20)
+      },
       clickFolder () {
         console.log('clickFolder')
       },
       clickFile () {
         console.log('clickFile')
       }
+    },
+    created () {
+      this.init()
     }
   }
 </script>

@@ -1,19 +1,31 @@
 # jason-vue-explorer
 > 基于 vue 的文件管理试图
+> 依赖 element-ui 的 table 组件
 
 ## 安装
 ```bash
+npm i --save element-ui
 npm i --save jason-vue-explorer
 ```
 
 ## 使用
 ```javascript
 import Vue from 'vue'
-import JasonVueExplorer from 'jason-vue-explorer'
-import 'jason-vue-explorer/dist/vue-explorer.css'
 
-Vue.use(JasonVueExplorer)
+import Element from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+
+import jasonVueExplorer from 'jason-vue-explorer'
+
+// 或者只注册 table 和 table-column 组件也可以
+Vue.use(Element)
+Vue.use(jasonVueExplorer)
 ```
+
+## 注意
+需要提前全局注册 el-table 和 el-table-column <br/>
+目前 el-table 有 bug...二次封装后不显示 <br/>
+原因不明
 
 ```vue
 <template>
@@ -21,6 +33,7 @@ Vue.use(JasonVueExplorer)
     <jason-vue-explorer
       mode="normal"
       :data-arr="dataArr"
+      :selection="selection"
       :selected-arr="selectedArr"
       :action-arr="actionArr"
       @clickFolder="clickFolder"
@@ -61,8 +74,14 @@ Vue.use(JasonVueExplorer)
         dataArr: [],
         
         /**
+         *  是否开启选择
+         **/
+        selection: true,
+        
+        /**
          *  被选中的项数据集合
          *  注意：
+         *    selection 要为 true
          *    table 模式有引用地址的问题
          *    所以要保证项对象在 dataArr 中能找到并且全等
          **/

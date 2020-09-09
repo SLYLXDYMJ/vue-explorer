@@ -14,6 +14,7 @@
         <!-- 选中按钮 -->
         <img
           class="explorer-normal-item-selected"
+          v-if="selection"
           src="./images/icon-selected.png"
           alt=""
           @click.stop="normalToggleSelected(item)">
@@ -39,7 +40,7 @@
       @row-click="(row, column, event) => clickItem(row)"
       @row-contextmenu="(row, column, event) => openAction(event, row)">
       <!-- 多选列 -->
-      <el-table-column type="selection"/>
+      <el-table-column v-if="selection" type="selection"/>
       <!-- 名称列 -->
       <el-table-column label="名称">
         <template slot-scope="scope">
@@ -84,8 +85,6 @@
 </template>
 
 <script>
-  import { Table, TableColumn, Button } from 'element-ui'
-
   export default {
     name: 'jason-vue-explorer',
     props: {
@@ -114,8 +113,17 @@
       },
 
       /**
+       *  是否开启选择
+       **/
+      selection: {
+        type: Boolean,
+        default: true
+      },
+
+      /**
        *  被选中的项数据集合
        *  注意：
+       *    selection 要为 true
        *    table 模式有引用地址的问题
        *    所以要保证项对象在 dataArr 中能找到并且全等
        **/
@@ -286,23 +294,22 @@
         })
       }
     },
-    components: {
-      [ Table.name ]: Table,
-      [ TableColumn.name ]: TableColumn,
-      [ Button.name ]: Button
-    },
     watch: {
       selectedArr: {
         immediate: true,
         handler (newArr, oldArr) {
-          if (this.mode !== 'table' || JSON.stringify(newArr) === JSON.stringify(oldArr)) {
+          if (
+            this.mode !== 'table' ||
+            this.dataArr.length === 0 ||
+            JSON.stringify(newArr) === JSON.stringify(oldArr)
+          ) {
             return null
           }
           else if (this.$refs.table) {
             this.syncElTableSelectedArr(newArr)
           }
           else {
-            this.$nextTick(() => {
+            setTimeout(() => {
               this.syncElTableSelectedArr(newArr)
             }, 20)
           }
@@ -319,6 +326,7 @@
     box-sizing: border-box;
     font-size: 14px;
     background-color: #fff;
+    line-height: 1.25;
     &-normal {
       display: flex;
       flex-wrap: wrap;
@@ -328,20 +336,20 @@
         align-items: center;
         justify-content: center;
         flex-direction: column;
-        position: relative;
         width: 100px;
         border-radius: 5px;
         cursor: pointer;
+        padding: 10px;
         &-selected {
           position: absolute;
           top: 0;
           left: 0;
           z-index: 5;
-          padding: 5px;
           color: #4b4b4b;
           opacity: 0;
           cursor: pointer;
           width: 18px;
+          margin: 5px;
         }
         &-icon {
           display: block;
@@ -349,6 +357,11 @@
         &-name {
           color: #8e8c8c;
           margin: 10px 0 0 0;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          width: 100%;
+          text-align: center;
         }
 
         // 鼠标移入状态
