@@ -23,9 +23,13 @@ Vue.use(jasonVueExplorer)
 ```
 
 ## 注意
-需要提前全局注册 el-table 和 el-table-column <br/>
-目前 el-table 有 bug...二次封装后不显示 <br/>
+> 目前使用需要提前全局注册 el-table 和 el-table-column
+
+element-ui table 组件有些 bug... <br/>
+我尝试在 explorer 中局部注册 table 和 table-column <br/>
+打包在其他项目中使用异常（注册正常，数据正常，显示异常） <br/>
 原因不明
+
 
 ## 包罗万象的例子
 ```vue
