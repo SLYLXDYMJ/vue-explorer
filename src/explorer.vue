@@ -62,9 +62,11 @@
     </el-table>
 
     <!-- empty -->
-    <div class="explorer-empty" v-else>
-      暂无文件...
-    </div>
+    <img
+      class="explorer-empty"
+      src="./images/empty.png"
+      v-else
+      alt="">
 
     <!-- action -->
     <div
@@ -312,6 +314,7 @@
     color: #000;
     box-sizing: border-box;
     font-size: 14px;
+    background-color: #fff;
     &-normal {
       display: flex;
       flex-wrap: wrap;
@@ -395,6 +398,9 @@
       }
     }
     &-empty {
+      display: block;
+      margin: 0 auto;
+      max-width: 240px;
     }
     &-action {
       position: absolute;
