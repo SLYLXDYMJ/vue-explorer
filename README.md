@@ -47,6 +47,7 @@ element-ui table 组件有些 bug... <br/>
     <jason-vue-explorer
       mode="table"
       :data-arr="dataArr"
+      :selection="selection"
       :selected-arr="selectedArr"
       :action-arr="actionArr"
       :other-column-arr="otherColumnArr"
