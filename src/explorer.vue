@@ -95,13 +95,13 @@
        *  每一项数据如下:
        *    {
        *      // 唯一值
-       *      key: [String, Number]
+       *      key: [String, Number],
        *
        *      // 显示名称
        *      name: String,
        *
        *      // 类型
-       *      type: Array[folder/docx/excel/image/mp3/pdf/ppt/txt/video/zip/none]
+       *      type: String[folder/docx/excel/image/mp3/pdf/ppt/txt/video/zip/none]
        *
        *      // 额外数据
        *      data: Object
@@ -114,7 +114,12 @@
         }
       },
 
-      // 选中的项
+      /**
+       *  被选中的项数据集合
+       *  注意：
+       *    table 模式有引用地址的问题
+       *    所以要保证项对象在 dataArr 中能找到并且全等
+       **/
       selectedArr: {
         type: Array,
         default () {
