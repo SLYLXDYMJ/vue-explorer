@@ -1,5 +1,6 @@
 {
   "name": "jason-vue-explorer",
+  "main": "./dist/vue-explorer.umd.min.js",
   "version": "0.1.0",
   "scripts": {
     "dev": "vue-cli-service serve ./example/main.js",

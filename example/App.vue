@@ -39,6 +39,14 @@
       data: {
         time: '2020.02.22'
       }
+    },
+    {
+      key: 3,
+      name: '视频',
+      type: 'video',
+      data: {
+        time: '2020.02.22'
+      }
     }
   ]
 
@@ -57,7 +65,21 @@
         ],
         actionArr: [
           {
-            label: '下载',
+            label: '下载1',
+            handler (data) {
+              console.log('点击了下载按钮')
+              console.log(data)
+            }
+          },
+          {
+            label: '下载2',
+            handler (data) {
+              console.log('点击了下载按钮')
+              console.log(data)
+            }
+          },
+          {
+            label: '下载3',
             handler (data) {
               console.log('点击了下载按钮')
               console.log(data)

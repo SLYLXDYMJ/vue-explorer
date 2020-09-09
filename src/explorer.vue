@@ -1,5 +1,5 @@
 <template>
-  <div class="explorer">
+  <div class="explorer" ref="root">
     <!-- mode normal -->
     <div
       class="explorer-normal"
@@ -9,7 +9,8 @@
         :class="{ active: selectedKeyArr.indexOf(item.key) !== -1 }"
         v-for="(item, i) in dataArr"
         :key="item.key"
-        @click="clickItem(item)">
+        @click="clickItem(item)"
+        @contextmenu="openAction($event, item)">
         <!-- 选中按钮 -->
         <img
           class="explorer-normal-item-selected"
@@ -34,7 +35,8 @@
       ref="table"
       v-else-if="mode === 'table' && dataArr.length"
       :data="dataArr"
-      @selection-change="tableToggleSelected">
+      @selection-change="tableToggleSelected"
+      @row-contextmenu="(row, column, event) => openAction(event, row)">
       <!-- 多选列 -->
       <el-table-column type="selection"/>
       <!-- 名称列 -->
@@ -57,22 +59,25 @@
           {{ column.filter ? column.filter(scope.row.data[column.key]) : scope.row.data[column.key] }}
         </template>
       </el-table-column>
-      <!-- 操作 -->
-      <el-table-column label="操作">
-        <template slot-scope="scope">
-          <el-button
-            v-for="action in actionArr"
-            :key="action.label"
-            size="small"
-            @click="action.handler(scope.row)">
-            {{ action.label }}
-          </el-button>
-        </template>
-      </el-table-column>
     </el-table>
 
+    <!-- empty -->
     <div class="explorer-empty" v-else>
       暂无文件...
+    </div>
+
+    <!-- action -->
+    <div
+      class="explorer-action"
+      v-show="showAction && actionArr.length"
+      :style="{ left: actionX + 'px', top: actionY + 'px' }">
+      <div
+        class="explorer-action-item"
+        v-for="action in actionArr"
+        :key="action.label"
+        @click="action.handler(selectedArr[0])">
+        {{ action.label }}
+      </div>
     </div>
   </div>
 </template>
@@ -142,11 +147,8 @@
       },
 
       /**
-       *  ! 未实现
        *  对于每一项的单独操作
-       *  表现形式：
-       *    normal 模式为右键项弹出选择框
-       *    table  模式为最后一列会有操作按钮
+       *  右键项即可弹出操作列表
        *  [
        *    {
        *      label: String（显示的名字）
@@ -176,7 +178,14 @@
           txt: require('./images/icon-txt.png'),
           video: require('./images/icon-video.png'),
           zip: require('./images/icon-zip.png')
-        }
+        },
+
+        // 显示 action
+        showAction: false,
+
+        // action 位置
+        actionX: 0,
+        actionY: 0
       }
     },
     computed: {
@@ -197,6 +206,42 @@
             'clickFile',
           item
         )
+      },
+
+      // 打开操作菜单
+      openAction (e, data) {
+        if (this.actionArr.length === 0) {
+          return null
+        }
+
+        let target = e.target
+        let offsetX = e.offsetX
+        let offsetY = e.offsetY
+
+        while (target !== this.$refs.root) {
+          offsetX += target.offsetLeft
+          offsetY += target.offsetTop
+          target = target.offsetParent
+        }
+
+        this.showAction = true
+        this.actionX = offsetX
+        this.actionY = offsetY
+
+        e.preventDefault()
+
+        // 选中当前的项
+        this.$emit('update:selectedArr', [ data ])
+
+        // 点击后隐藏 action
+        document.addEventListener('click', (() => {
+          let handler = () => {
+            this.showAction = false
+            document.removeEventListener('click', handler)
+          }
+
+          return handler
+        })())
       },
 
       // normal 模式切换选中状态
@@ -263,6 +308,7 @@
 
 <style lang="scss" scoped>
   .explorer {
+    position: relative;
     color: #000;
     box-sizing: border-box;
     font-size: 14px;
@@ -275,10 +321,10 @@
         align-items: center;
         justify-content: center;
         flex-direction: column;
+        position: relative;
         width: 100px;
         border-radius: 5px;
         cursor: pointer;
-
         &-selected {
           position: absolute;
           top: 0;
@@ -346,6 +392,27 @@
       td:nth-child(2):hover {
         cursor: pointer;
         background-color: rgba(#000, 0.08);
+      }
+    }
+    &-empty {
+    }
+    &-action {
+      position: absolute;
+      z-index: 5;
+      border-radius: 5px;
+      border: 1px solid #ebeef5;
+      min-width: 100px;
+      background-color: #fff;
+      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
+      &-item {
+        padding: 12px;
+        & {
+          transition: all .2s;
+          cursor: pointer;
+        }
+        &:hover {
+          background-color: rgba(#000, 0.05);
+        }
       }
     }
   }
