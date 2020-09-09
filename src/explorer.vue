@@ -36,15 +36,14 @@
       v-else-if="mode === 'table' && dataArr.length"
       :data="dataArr"
       @selection-change="tableToggleSelected"
+      @row-click="(row, column, event) => clickItem(row)"
       @row-contextmenu="(row, column, event) => openAction(event, row)">
       <!-- 多选列 -->
       <el-table-column type="selection"/>
       <!-- 名称列 -->
       <el-table-column label="名称">
         <template slot-scope="scope">
-          <div
-            class="explorer-table-name"
-            @click="clickItem(scope.row)">
+          <div class="explorer-table-name">
             <img :src="typeIconMap[ scope.row.type ]" alt="">
             {{ scope.row.name }}
           </div>
@@ -384,22 +383,9 @@
           margin-right: 12px;
         }
       }
-      td, th {
-        padding: 14px;
-        transition: all .15s;
-      }
-      th {
-        text-align: left;
-        font-size: 14px;
-        font-weight: bold;
-        color: #909399;
-      }
-      th, td {
-        border: 1px solid #e6e6e6;
-      }
-      td:nth-child(2):hover {
+
+      /deep/ .el-table__row {
         cursor: pointer;
-        background-color: rgba(#000, 0.08);
       }
     }
     &-empty {
