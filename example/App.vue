@@ -23,27 +23,92 @@
 </template>
 
 <script>
+  let i = 0
   let dataArr = [
     {
-      key: 0,
-      name: '文件夹',
+      key: i++,
+      name: 'folder',
       type: 'folder',
       data: {
         time: '2020.02.09'
       }
     },
     {
-      key: 1,
-      name: '图片',
+      key: i++,
+      name: 'doc',
+      type: 'doc',
+      data: {
+        time: '2020.02.09'
+      }
+    },
+    {
+      key: i++,
+      name: 'pdf',
+      type: 'pdf',
+      data: {
+        time: '2020.02.09'
+      }
+    },
+    {
+      key: i++,
+      name: 'ppt',
+      type: 'ppt',
+      data: {
+        time: '2020.02.09'
+      }
+    },
+    {
+      key: i++,
+      name: 'xls',
+      type: 'xls',
+      data: {
+        time: '2020.02.09'
+      }
+    },
+    {
+      key: i++,
+      name: 'rar',
+      type: 'rar',
+      data: {
+        time: '2020.02.09'
+      }
+    },
+    {
+      key: i++,
+      name: 'zip',
+      type: 'zip',
+      data: {
+        time: '2020.02.09'
+      }
+    },
+    {
+      key: i++,
+      name: 'image',
       type: 'image',
       data: {
         time: '2020.02.22'
       }
     },
     {
-      key: 3,
-      name: '视频',
+      key: i++,
+      name: 'video',
       type: 'video',
+      data: {
+        time: '2020.02.22'
+      }
+    },
+    {
+      key: i++,
+      name: 'txt',
+      type: 'txt',
+      data: {
+        time: '2020.02.09'
+      }
+    },
+    {
+      key: i++,
+      name: 'none',
+      type: 'none',
       data: {
         time: '2020.02.22'
       }

@@ -181,17 +181,18 @@
       return {
         // 各个类型的图标数据
         typeIconMap: {
-          docx: require('./images/icon-docx.png'),
-          excel: require('./images/icon-excel.png'),
+          doc: require('./images/icon-doc.png'),
+          xls: require('./images/icon-xls.png'),
           folder: require('./images/icon-folder.png'),
           image: require('./images/icon-image.png'),
           mp3: require('./images/icon-mp3.png'),
           none: require('./images/icon-none.png'),
           pdf: require('./images/icon-pdf.png'),
           ppt: require('./images/icon-ppt.png'),
-          txt: require('./images/icon-txt.png'),
           video: require('./images/icon-video.png'),
-          zip: require('./images/icon-zip.png')
+          zip: require('./images/icon-zip.png'),
+          rar: require('./images/icon-rar.png'),
+          txt: require('./images/icon-txt.png')
         },
 
         // 显示 action
