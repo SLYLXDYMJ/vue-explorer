@@ -42,7 +42,8 @@ element-ui table 组件有些 bug... <br/>
       :selected-arr="selectedArr"
       :action-arr="actionArr"
       @clickFolder="clickFolder"
-      @clickFile="clickFile"/>
+      @clickFile="clickFile"
+      @dragMove="dragMove"/>
       
     <jason-vue-explorer
       mode="table"
@@ -125,7 +126,12 @@ element-ui table 组件有些 bug... <br/>
       clickFolder (data) {},
       
       // 点击文件时出发
-      clickFile (data) {}
+      clickFile (data) {},
+      
+      // 拖拽移动时触发
+      // 只有拖拽到文件夹才会触发
+      // 注意：目前只有 normal 模式才有拖拽
+      dragMove (targetFolderData, selectedArr) {}
     }
   }
 </script>

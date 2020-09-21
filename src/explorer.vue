@@ -9,8 +9,12 @@
         :class="{ active: selectedKeyArr.indexOf(item.key) !== -1 }"
         v-for="(item, i) in dataArr"
         :key="item.key"
+        draggable
         @click="clickItem(item)"
-        @contextmenu="openAction($event, item)">
+        @contextmenu="openAction($event, item)"
+        @dragstart="($event) => onDragstart($event, item)"
+        @dragover.prevent
+        @drop="($event) => onDrop($event, item)">
         <!-- 选中按钮 -->
         <img
           class="explorer-normal-item-selected"
@@ -257,6 +261,51 @@
 
           return handler
         })())
+      },
+
+      // 拖拽
+      onDragstart (e, item) {
+        let selectedArr = this.selectedArr
+        let hasSelected = selectedArr.length
+        let isSelected = (() => {
+          for (let i = 0; i < selectedArr.length; i++) {
+            if (selectedArr[ i ].key === item.key) {
+              return true
+            }
+          }
+          return false
+        })()
+
+        /**
+         *  用户体验
+         *    若当前没有选中项目
+         *    或
+         *    若当前已选中了项目，但是不包含当前拖拽的这一个
+         *    则只选中当前这一个
+         **/
+        if (!hasSelected || (hasSelected && !isSelected)) {
+          let newSelectedArr = selectedArr = [ item ]
+          this.$emit('update:selectedArr', newSelectedArr)
+        }
+
+        e.dataTransfer.setData('text', JSON.stringify(
+          selectedArr
+        ))
+      },
+      onDrop (e, item) {
+        let targetFolderData = item
+        let selectedArr = JSON.parse(
+          e.dataTransfer.getData('text')
+        )
+
+        /**
+         *  ! 目标必须是个文件夹
+         **/
+        if (targetFolderData.type !== 'folder') {
+          return null
+        }
+
+        this.$emit('dragMove', targetFolderData, selectedArr)
       },
 
       // normal 模式切换选中状态

@@ -7,7 +7,8 @@
         :selected-arr.sync="selectedArr"
         :action-arr="actionArr"
         @clickFolder="clickFolder"
-        @clickFile="clickFile"/>
+        @clickFile="clickFile"
+        @dragMove="dragMove"/>
     </div>
     <div class="group">
       <jason-vue-explorer
@@ -163,6 +164,9 @@
       },
       clickFile () {
         console.log('clickFile')
+      },
+      dragMove (folder, data) {
+        console.log(folder, data)
       }
     },
     created () {
