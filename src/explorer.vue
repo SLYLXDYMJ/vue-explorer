@@ -297,11 +297,24 @@
         let selectedArr = JSON.parse(
           e.dataTransfer.getData('text')
         )
+        let includeSelf = (() => {
+          for (let i = 0; i < selectedArr.length; i++) {
+            let selectedItem = selectedArr[ i ]
+            if (selectedItem.key === targetFolderData.key) {
+              return true
+            }
+          }
+          return false
+        })()
 
         /**
          *  ! 目标必须是个文件夹
+         *  ! 不能自己移动自己
          **/
-        if (targetFolderData.type !== 'folder') {
+        if (
+          targetFolderData.type !== 'folder' ||
+          includeSelf
+        ) {
           return null
         }
 
