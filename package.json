@@ -1,7 +1,7 @@
 {
   "name": "vue-explorer-component",
   "main": "./dist/vue-explorer.umd.min.js",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "scripts": {
     "dev": "vue-cli-service serve ./example/main.js",
     "build": "vue-cli-service build --target lib --name vue-explorer ./src/index.js & vue-cli-service build ./example/main.js --dest docs"
