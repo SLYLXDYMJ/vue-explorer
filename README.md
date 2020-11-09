@@ -5,7 +5,7 @@
 ## 安装
 ```bash
 npm i --save element-ui
-npm i --save jason-vue-explorer
+npm i --save vue-explorer-component
 ```
 
 ## 使用
@@ -15,11 +15,11 @@ import Vue from 'vue'
 import Element from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
-import jasonVueExplorer from 'jason-vue-explorer'
+import vueExplorer from 'vue-explorer-component'
 
 // 或者只注册 table 和 table-column 组件也可以
 Vue.use(Element)
-Vue.use(jasonVueExplorer)
+Vue.use(vueExplorer)
 ```
 
 ## 注意

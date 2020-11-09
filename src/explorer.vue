@@ -90,7 +90,7 @@
 
 <script>
   export default {
-    name: 'jason-vue-explorer',
+    name: 'vue-explorer',
     props: {
       /**
        *  文件数据，一维数组

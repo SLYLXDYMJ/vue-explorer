@@ -1,7 +1,7 @@
 <template>
   <div class="root">
     <div class="group">
-      <jason-vue-explorer
+      <vue-explorer
         mode="normal"
         :data-arr="dataArr"
         :selected-arr.sync="selectedArr"
@@ -11,7 +11,7 @@
         @dragMove="dragMove"/>
     </div>
     <div class="group">
-      <jason-vue-explorer
+      <vue-explorer
         mode="table"
         :data-arr="dataArr"
         :selected-arr.sync="selectedArr"
