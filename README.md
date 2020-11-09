@@ -114,7 +114,7 @@ element-ui table 组件有些 bug... <br/>
          *  来显示纯显示
          *  {
          *    label: String,
-         *    path: String,
+         *    key: String,
          *    filter: Function
          *  }
          **/

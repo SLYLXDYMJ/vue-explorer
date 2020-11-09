@@ -156,7 +156,7 @@
        *  来显示纯显示
        *  {
        *    label: String,
-       *    path: String,
+       *    key: String,
        *    filter: Function
        *  }
        **/
