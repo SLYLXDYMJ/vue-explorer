@@ -1,4 +1,4 @@
-# jason-vue-explorer
+# vue-explorer
 > 基于 vue 的文件管理试图
 > 依赖 element-ui 的 table、table-column 组件
 
@@ -35,7 +35,7 @@ element-ui table 组件有些 bug... <br/>
 ```vue
 <template>
   <div>
-    <jason-vue-explorer
+    <vue-explorer
       mode="normal"
       :data-arr="dataArr"
       :selection="selection"
@@ -45,7 +45,7 @@ element-ui table 组件有些 bug... <br/>
       @clickFile="clickFile"
       @dragMove="dragMove"/>
       
-    <jason-vue-explorer
+    <vue-explorer
       mode="table"
       :data-arr="dataArr"
       :selection="selection"
