@@ -2,6 +2,9 @@
 > 基于 vue 的文件管理试图
 > 依赖 element-ui 的 table、table-column 组件
 
+## Demo
+> https://q-jason.github.io/vue-explorer/
+
 ## 安装
 ```bash
 npm i --save element-ui
