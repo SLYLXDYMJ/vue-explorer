@@ -1,5 +1,5 @@
 # vue-explorer
-> 基于 vue 的文件管理试图
+> 基于 vue 的文件管理器
 > 依赖 element-ui 的 table、table-column 组件
 
 ## Demo
