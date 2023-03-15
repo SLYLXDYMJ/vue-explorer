@@ -3,7 +3,7 @@
 > 依赖 element-ui 的 table、table-column 组件
 
 ## Demo
-> https://q-jason.github.io/vue-explorer/
+> https://slylxdymj.github.io/vue-explorer/
 
 ## 安装
 ```bash
